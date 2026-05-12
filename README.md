@@ -170,10 +170,10 @@ We trained and compared three models of increasing complexity:
 
 | Model | Accuracy | F1 Score | AUC-ROC |
 |-------|----------|----------|---------|
-| Logistic Regression | ~72% | ~0.71 | ~0.78 |
-| Random Forest | ~79% | ~0.78 | ~0.86 |
-| XGBoost | ~81% | ~0.80 | ~0.88 |
-| *Ensemble (Final)* | *~82%* | *~0.81* | *~0.89* |
+| Logistic Regression | ~94% | ~0.88 | ~0.86 |
+| Random Forest | ~96% | ~0.90 | ~0.89 |
+| XGBoost | ~96% | ~0.90 | ~0.88 |
+| *Ensemble (Final)* | *~90%* | *~0.90* | *~0.96* |
 
 The final prediction uses an *ensemble of Random Forest + XGBoost*, classifying students into:
 
