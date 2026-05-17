@@ -480,7 +480,7 @@ with st.sidebar:
 
     base = st.text_input("Base folder path", value=r"data_set", help="Folder containing all 7 OULAD CSV files")
 
-    use_demo = st.checkbox("⚡ Use demo/synthetic data", value=True,
+    use_demo = st.checkbox("⚡ Use demo/synthetic data", value=False,
                            help="Generate synthetic OULAD-like data for demonstration")
 
     st.markdown("<div class='custom-divider'></div>", unsafe_allow_html=True)
@@ -600,27 +600,53 @@ def make_synthetic_data():
 
     return master
 
-# Load data
-with st.spinner("🔄 Loading and processing data pipeline..."):
-    if use_demo:
+# Load REAL data correctly
+with st.spinner("🔄 Loading and processing REAL dataset..."):
+
+    import os
+
+    # Automatically detect dataset folder
+    possible_folders = [
+        'data_set',
+        'dataset',
+        'Data_Set',
+        'DATA_SET',
+        '.',
+    ]
+
+    detected_base = None
+
+    for folder in possible_folders:
+        test_file = os.path.join(folder, 'courses.csv')
+        if os.path.exists(test_file):
+            detected_base = folder
+            break
+
+    # If nothing detected → use user input
+    if detected_base is None:
+        detected_base = base
+
+    try:
+        master, _, _ = load_and_prepare(
+            os.path.join(detected_base, 'courses.csv'),
+            os.path.join(detected_base, 'assessments.csv'),
+            os.path.join(detected_base, 'vle.csv'),
+            os.path.join(detected_base, 'studentInfo.csv'),
+            os.path.join(detected_base, 'studentRegistration.csv'),
+            os.path.join(detected_base, 'studentAssessment.csv'),
+            os.path.join(detected_base, 'studentVle.csv'),
+        )
+
+        st.success(f"✅ REAL dataset loaded successfully from: {detected_base}")
+        st.success(f"✅ Total students loaded: {len(master):,}")
+
+    except Exception as e:
+
+        st.error("❌ REAL dataset could not be loaded")
+        st.error(str(e))
+
+        st.warning("⚠️ Falling back to synthetic/demo data")
         master = make_synthetic_data()
-        st.toast("✅ Demo data loaded successfully", icon="✅")
-    else:
-        try:
-            import os
-            master, _, _ = load_and_prepare(
-                os.path.join(base, 'courses.csv'),
-                os.path.join(base, 'assessments.csv'),
-                os.path.join(base, 'vle.csv'),
-                os.path.join(base, 'studentInfo.csv'),
-                os.path.join(base, 'studentRegistration.csv'),
-                os.path.join(base, 'studentAssessment.csv'),
-                os.path.join(base, 'studentVle.csv'),
-            )
-            st.toast("✅ Real data loaded", icon="✅")
-        except Exception as e:
-            st.warning(f"⚠️ Could not load files from '{base}': {e}. Falling back to demo data.")
-            master = make_synthetic_data()
 
 with st.spinner("🤖 Training Random Forest & XGBoost models..."):
     rf, xgb_model, feature_cols, X_test, y_test = train_models(master)
