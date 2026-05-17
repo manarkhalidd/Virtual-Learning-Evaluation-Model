@@ -283,14 +283,13 @@ We did not stop at one model. We built three — and combined the best two into 
 
 | 🤖 Model | 🎯 Accuracy | 📊 F1 Score | 📈 AUC-ROC | 🧠 Purpose |
 |---------|------------|------------|-----------|-----------|
-| Logistic Regression | ~72% | ~0.71 | ~0.78 | Baseline benchmark — simple & interpretable |
-| Random Forest | ~79% | ~0.78 | ~0.86 | 100 decision trees — powerful pattern detection |
-| XGBoost | ~81% | ~0.80 | ~0.88 | Gradient boosting — corrects its own mistakes |
-| ⭐ **RF + XGBoost Ensemble** | **~82%** | **~0.81** | **~0.89** | **Final model — best of both worlds** |
+| Logistic Regression | ~94% | ~0.88 | ~0.86 | Baseline benchmark — simple & interpretable |
+| Random Forest | ~96% | ~0.90 | ~0.89 | 100 decision trees — powerful pattern detection |
+| XGBoost | ~96% | ~0.90 | ~0.89 | Gradient boosting — corrects its own mistakes |
+| ⭐ **RF + XGBoost Ensemble** | **~90%** | **~0.90** | **~0.96** | **Final model — best of both worlds** |
 
 <br>
 
-> *Replace with your actual evaluated results from Section 9 of the notebook.*
 
 <br>
 
