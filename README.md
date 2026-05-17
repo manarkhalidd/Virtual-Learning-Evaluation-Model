@@ -634,7 +634,7 @@ This project is a foundation — not a ceiling.
 
 ---
 
-*Virtual Learning Evaluation Model · OULAD Dataset · Graduation Project 2025*
+*Virtual Learning Evaluation Model · OULAD Dataset · Graduation Project 2026*
 *Built with* ❤️ *by a team that believes education deserves better tools*
 
 <br>
